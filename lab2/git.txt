@@ -1,0 +1,243 @@
+git init
+
+
+git config --local user.name red
+git config --local user.email red@mail.ru
+cp ../commits/commit0/* .
+git add .
+git commit -m "r0" 
+
+
+cp ../commits/commit1/* .
+git add .
+git commit -m "r1"
+
+
+git checkout -b branch1
+cp ../commits/commit2/* .
+git add .
+git commit -m "r2"
+
+
+git config --local user.name blue
+git config --local user.email blue@mail.ru
+git checkout -b branch2
+cp ../commits/commit3/* .
+git add .
+git commit -m "r3"
+
+
+git config --local user.name red
+git config --local user.email red@mail.ru
+git checkout master
+cp ../commits/commit4/* .
+git add .
+git commit -m "r4"
+
+
+git config --local user.name blue
+git config --local user.email blue@mail.ru
+git checkout branch2
+cp ../commits/commit5/* .
+git add .
+git commit -m "r5"
+
+
+git checkout -b branch3
+cp ../commits/commit6/* .
+git add .
+git commit -m "r6"
+
+
+git checkout branch2
+cp ../commits/commit7/* .
+git add .
+git commit -m "r7"
+
+
+git checkout branch3
+cp ../commits/commit8/* .
+git add .
+git commit -m "r8"
+
+
+cp ../commits/commit9/* .
+git add .
+git commit -m "r9"
+
+
+git config --local user.name red
+git config --local user.email red@mail.ru
+git checkout branch1
+cp ../commits/commit10/* .
+git add .
+git commit -m "r10"
+
+
+cp ../commits/commit11/* .
+git add .
+git commit -m "r11"
+
+
+git config --local user.name blue
+git config --local user.email blue@mail.ru
+git checkout branch3
+cp ../commits/commit12/* .
+git add .
+git commit -m "r12"
+
+
+git config --local user.name red
+git config --local user.email red@mail.ru
+git checkout branch1
+cp ../commits/commit13/* .
+git add .
+git commit -m "r13"
+
+
+git checkout master
+cp ../commits/commit14/* .
+git add .
+git commit -m "r14"
+
+
+cp ../commits/commit15/* .
+git add .
+git commit -m "r15"
+
+
+cp ../commits/commit16/* .
+git add .
+git commit -m "r16"
+
+
+git config --local user.name blue
+git config --local user.email blue@mail.ru
+git checkout branch3
+cp ../commits/commit17/* .
+git add .
+git commit -m "r17"
+
+
+cp ../commits/commit18/* .
+git add .
+git commit -m "r18"
+
+
+git config --local user.name red
+git config --local user.email red@mail.ru
+git checkout master
+cp ../commits/commit19/* .
+git add .
+git commit -m "r19"
+
+
+git checkout branch1
+cp ../commits/commit20/* .
+git add .
+git commit -m "r20"
+
+
+git config --local user.name blue
+git config --local user.email blue@mail.ru
+git checkout branch3
+cp ../commits/commit21/* .
+git add .
+git commit -m "r21"
+
+
+git checkout branch2
+cp ../commits/commit22/* .
+git add .
+git commit -m "r22"
+
+
+git config --local user.name red
+git config --local user.email red@mail.ru
+git checkout branch1
+cp ../commits/commit23/* .
+git add .
+git commit -m "r23"
+
+
+git config --local user.name blue
+git config --local user.email blue@mail.ru
+git checkout branch2
+cp ../commits/commit24/* .
+git add .
+git commit -m "r24"
+
+
+cp ../commits/commit25/* .
+git add .
+git commit -m "r25"
+
+
+git config --local user.name red
+git config --local user.email red@mail.ru
+git checkout master
+cp ../commits/commit26/* .
+git add .
+git commit -m "r26"
+
+
+cp ../commits/commit27/* .
+git add .
+git commit -m "r27"
+
+
+git config --local user.name blue
+git config --local user.email blue@mail.ru
+git checkout branch2
+cp ../commits/commit28/* .
+git add .
+git commit -m "r28"
+
+#merge success
+git checkout branch3
+git merge --no-commit branch2
+cp ../commits/commit29/* .
+git add .
+git commit -m "r29"
+
+
+cp ../commits/commit30/* .
+git add .
+git commit -m "r30"
+
+
+
+git config --local user.name red
+git config --local user.email red@mail.ru
+git checkout branch1
+git merge --no-commit branch3
+
+# Обнаружены конфликты в A.java, B.java, H.java
+# git merge-base branch3 branch1
+# git diff -U0 hash branch3 A.java
+# git diff -U0 hash branch1 A.java
+# Так проверяем для B.java и H.java и убеждаемся в том, что в branch3 методов больше, чем в branch1 => в слияние попадут файлы из branch3
+
+git checkout --theirs A.java
+git checkout --theirs B.java
+git checkout --theirs H.java
+cp ../commits/commit31/* .
+git add .
+git commit -m "r31"
+
+
+git checkout master
+git merge --no-commit branch1
+
+# Обнаружены конфликты в A.java, B.java, H.java
+# git merge-base master branch1
+# git diff -U0 hash master A.java
+# git diff -U0 hash branch1 A.java
+# Так проверяем для B.java и H.java и убеждаемся в том, что в branch1 методов больше, чем в branch1 => в слияние попадут файлы из branch3
+
+git checkout --theirs A.java
+git checkout --theirs B.java
+git checkout --theirs H.java
+cp ../commits/commit32/* .
+git add .
+git commit -m "r32"

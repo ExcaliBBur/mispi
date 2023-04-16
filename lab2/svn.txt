@@ -1,0 +1,208 @@
+export SVN_EDITOR=vim
+
+mkdir ./.svnrepos/
+cd .svnrepos/
+svnadmin create workSvn
+svn mkdir -m "Create directory structure." file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/trunk file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/tags
+
+cd ..
+mkdir workSvn
+cd workSvn
+svn checkout file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/trunk ./
+
+
+
+cp ../commits/commit0/* .
+svn add * --force
+svn commit -m "r0" --username=red
+
+
+cp ../commits/commit1/* .
+svn add * --force
+svn commit -m "r1" --username=red
+
+
+svn copy file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/trunk file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch1 -m "Add branch1" --username=red
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch1
+cp ../commits/commit2/* .
+svn add * --force
+svn commit -m "r2" --username=red
+
+
+svn copy file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch1 file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch2 -m "Add branch2" --username=blue
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch2
+cp ../commits/commit3/* .
+svn add * --force
+svn commit -m "r3" --username=blue
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/trunk
+cp ../commits/commit4/* .
+svn add * --force
+svn commit -m "r4" --username=red
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch2
+cp ../commits/commit5/* .
+svn add * --force
+svn commit -m "r5" --username=blue
+
+
+svn copy file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch2 file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch3 -m "Add branch3" --username=blue
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch3
+cp ../commits/commit6/* .
+svn add * --force
+svn commit -m "r6" --username=blue
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch2
+cp ../commits/commit7/* .
+svn add * --force
+svn commit -m "r7" --username=blue
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch3
+cp ../commits/commit8/* .
+svn add * --force
+svn commit -m "r8" --username=blue
+
+
+cp ../commits/commit9/* .
+svn add * --force
+svn commit -m "r9" --username=blue
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch1
+cp ../commits/commit10/* .
+svn add * --force
+svn commit -m "r10" --username=red
+
+
+cp ../commits/commit11/* .
+svn add * --force
+svn commit -m "r11" --username=red
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch3
+cp ../commits/commit12/* .
+svn add * --force
+svn commit -m "r12" --username=blue
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch1
+cp ../commits/commit13/* .
+svn add * --force
+svn commit -m "r13" --username=red
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/trunk
+cp ../commits/commit14/* .
+svn add * --force
+svn commit -m "r14" --username=red
+
+
+cp ../commits/commit15/* .
+svn add * --force
+svn commit -m "r15" --username=red
+
+
+cp ../commits/commit16/* .
+svn add * --force
+svn commit -m "r16" --username=red
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch3
+cp ../commits/commit17/* .
+svn add * --force
+svn commit -m "r17" --username=blue
+
+
+cp ../commits/commit18/* .
+svn add * --force
+svn commit -m "r18" --username=blue
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/trunk
+cp ../commits/commit19/* .
+svn add * --force
+svn commit -m "r19" --username=red
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch1
+cp ../commits/commit20/* .
+svn add * --force
+svn commit -m "r20" --username=red
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch3
+cp ../commits/commit21/* .
+svn add * --force
+svn commit -m "r21" --username=blue
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch2
+cp ../commits/commit22/* .
+svn add * --force
+svn commit -m "r22" --username=blue
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch1
+cp ../commits/commit23/* .
+svn add * --force
+svn commit -m "r23" --username=red
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch2
+cp ../commits/commit24/* .
+svn add * --force
+svn commit -m "r24" --username=blue
+
+
+cp ../commits/commit25/* .
+svn add * --force
+svn commit -m "r25" --username=blue
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/trunk
+cp ../commits/commit26/* .
+svn add * --force
+svn commit -m "r26" --username=red
+
+
+cp ../commits/commit27/* .
+svn add * --force
+svn commit -m "r27" --username=red
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch2
+cp ../commits/commit28/* .
+svn add * --force
+svn commit -m "r28" --username=blue
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch3
+svn merge --force file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch2
+# Используем M
+cp ../commits/commit29/* .
+svn add * --force
+svn commit -m "r29" --username=blue
+
+
+cp ../commits/commit30/* .
+svn add * --force
+svn commit -m "r30" --username=blue
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch1
+svn merge --force file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch3
+# Используем сначала mf, M
+# Затем используем tf, M
+cp ../commits/commit31/* .
+svn add * --force
+svn commit -m "r31" --username=red
+
+
+svn sw file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/trunk
+svn merge --force file:///home/studs/s335989/mispi/lab2/.svnrepos/workSvn/branches/branch1
+cp ../commits/commit32/* .
+svn add * --force
+svn commit -m "r32" --username=red

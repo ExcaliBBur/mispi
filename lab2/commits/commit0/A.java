@@ -1,0 +1,14 @@
+public class A {
+
+    private double b = 100.500;
+
+    private int e = 42;
+
+    public java.lang.Class qq() {
+        return getClass();
+    }
+
+    public long dd() {
+        return 99999;
+    }
+}
