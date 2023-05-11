@@ -13,7 +13,6 @@ public class ClockBeanTest {
     private DateTimeFormatter dateFormat;
     private LocalDateTime dateTime;
 
-
     @BeforeEach
     public void setUp() {
         this.clockBean = new ClockBean();

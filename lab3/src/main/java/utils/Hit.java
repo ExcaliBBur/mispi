@@ -3,6 +3,9 @@ package utils;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * Hit entity
+ */
 @Entity(name = "hit")
 public class Hit {
     private float x;
@@ -90,6 +93,10 @@ public class Hit {
         return id;
     }
 
+    /**
+     * Check if hit in area
+     * @return true if hit in area, false if it doesn't
+     */
     public boolean checkHit() {
         float x = getX();
         float y = getY();

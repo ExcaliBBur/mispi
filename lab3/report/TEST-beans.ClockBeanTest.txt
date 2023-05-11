@@ -1,0 +1,5 @@
+Testcase: beans.ClockBeanTest
+Test: clockBeanWithoutUpdate() took 20 milli sec(s)
+Test: clockBeanWithUpdateTrue() took 1 sec(s)
+Test: clockBeanWithUpdateFalse() took 1 sec(s)
+Tests run: 3, Failures: 0, Skipped: 0, Aborted: 0, Time elapsed: 2 sec(s)

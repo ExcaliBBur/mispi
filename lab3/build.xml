@@ -3,13 +3,7 @@
     <property file="build.properties"/>
 
 
-
-
-
-<!--    TODO: ADD DESCRIPTION TO ALL TARGETS-->
-
-
-
+    <!--    TODO: ADD DESCRIPTION TO ALL TARGETS-->
 
 
     <path id="classpath.source">
@@ -24,14 +18,24 @@
         <delete dir="${lib}"/>
     </target>
     <target name="clean-allLib" depends="cleanLib" description="clean ivy cache">
-        <ivy:cleancache />
+        <ivy:cleancache/>
     </target>
 
     <target name="compile">
         <mkdir dir="${compiled.classes}"/>
+        <mkdir dir="${compiled.tests}"/>
+
         <javac destdir="${compiled.classes}" includeantruntime="false">
             <src path="${main}"/>
             <classpath refid="classpath.source"/>
+        </javac>
+
+        <javac destdir="${compiled.tests}" includeantruntime="false">
+            <src path="${tests}"/>
+            <classpath>
+                <pathelement location="${compiled.classes}"/>
+                <path refid="classpath.source"/>
+            </classpath>
         </javac>
     </target>
 
@@ -45,6 +49,62 @@
 
     <target name="clean">
         <delete dir="${compiled}"/>
+    </target>
+
+    <target name="test" depends="build">
+        <mkdir dir="${report}"/>
+        <junitlauncher printsummary="true">
+            <classpath>
+                <pathelement location="${compiled.tests}"/>
+                <pathelement location="${compiled.classes}"/>
+                <path refid="classpath.source"/>
+            </classpath>
+            <testclasses outputdir="${report}">
+                <fileset dir="${compiled.tests}"/>
+            </testclasses>
+        </junitlauncher>
+    </target>
+
+    <target name="xml">
+        <xmlvalidate failonerror="no">
+            <fileset dir="${main}" includes="**/*.xml"/>
+        </xmlvalidate>
+    </target>
+
+    <target name="doc" depends="build"
+            description="Генерация javadoc и добавление в MANIFEST.MF MD5 и SHA-1 файлов проекта">
+        <delete dir="${doc}"/>
+        <mkdir dir="${doc}"/>
+
+        <mkdir dir="tmp/"/>
+
+        <checksum algorithm="SHA1" todir="tmp/" totalproperty="sha1">
+            <fileset dir="${main}"/>
+        </checksum>
+
+        <checksum algorithm="MD5" todir="tmp/" totalproperty="md5">
+            <fileset dir="${main}"/>
+        </checksum>
+
+        <delete dir="tmp/"/>
+
+        <javadoc destdir="${doc}">
+            <classpath refid="classpath.source"/>
+            <fileset dir="${main}"/>
+        </javadoc>
+
+        <jar destfile="${doc}/javadoc.jar" basedir="${doc}">
+            <manifest>
+                <attribute name="SHA1" value="${sha1}"/>
+                <attribute name="MD5" value="${md5}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="native2ascii">
+        <native2ascii src="${main.resources}"
+                      dest="${native2ascii}"
+                      includes="**/*.properties"/>
     </target>
 
 </project>
