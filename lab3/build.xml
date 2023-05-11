@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<project name="mispi3" default="build" xmlns:ivy="antlib:org.apache.ivy.ant">
+    <property file="build.properties"/>
+
+
+
+
+
+<!--    TODO: ADD DESCRIPTION TO ALL TARGETS-->
+
+
+
+
+
+    <path id="classpath.source">
+        <fileset dir="${lib}" includes="**/*.jar"/>
+    </path>
+
+    <target name="resolve" description="resolve dependencies with ivy">
+        <mkdir dir="${lib}"/>
+        <ivy:retrieve pattern="lib/[artifact].[ext]" conf="jars"/>
+    </target>
+    <target name="cleanLib" description="Remove lib directory">
+        <delete dir="${lib}"/>
+    </target>
+    <target name="clean-allLib" depends="cleanLib" description="clean ivy cache">
+        <ivy:cleancache />
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${compiled.classes}"/>
+        <javac destdir="${compiled.classes}" includeantruntime="false">
+            <src path="${main}"/>
+            <classpath refid="classpath.source"/>
+        </javac>
+    </target>
+
+    <target name="build" depends="compile">
+        <jar destfile="${destination.jar}" basedir="${compiled.classes}">
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="clean">
+        <delete dir="${compiled}"/>
+    </target>
+
+</project>
