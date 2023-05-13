@@ -10,9 +10,9 @@
         <fileset dir="${lib}" includes="**/*.jar"/>
     </path>
 
-    <taskdef resource="net/sf/antcontrib/antlib.xml" >
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
         <classpath>
-            <pathelement location="${antcontrib}" />
+            <pathelement location="lib/ant-contrib.jar"/>
         </classpath>
     </taskdef>
 
@@ -137,22 +137,22 @@
             <arg value="/c"/>
             <arg value="git log --pretty=format:%h -1"/>
         </exec>
-        <for list="~,~~,~~~" param="tilda">
+
+        <for list="~,~~,~~~" param="commit">
             <sequential>
-                <exec executable="cmd" outputproperty="commit">
+                <exec executable="cmd" outputproperty="commits">
                     <arg value="/c"/>
-                    <arg value="git checkout -f HEAD@{tilda}"/>
+                    <arg value="git checkout -f HEAD@{com}"/>
                 </exec>
 
                 <antcall target="build">
-                    <param name="destination.jar" value="${team}/${commit}.jar"/>
+                    <param name="destination.jar" value="team/@{commit}.jar"/>
                 </antcall>
 
                 <exec executable="cmd">
                     <arg value="/c"/>
                     <arg value="git checkout -f ${start}"/>
                 </exec>
-
             </sequential>
         </for>
     </target>
