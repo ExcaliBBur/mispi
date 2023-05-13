@@ -134,15 +134,19 @@
         <mkdir dir="${team}"/>
 
         <exec executable="cmd" outputproperty="start">
+<!--        <exec executable="ksh" outputproperty="commits">-->
             <arg value="/c"/>
+<!--            <arg value="/home/studs/s335989/mispi"/>-->
             <arg value="git log --pretty=format:%h -1"/>
         </exec>
 
-        <for list="~,~~,~~~" param="commit">
+        <for list="~,~~" param="commit">
             <sequential>
                 <exec executable="cmd" outputproperty="commits">
+<!--                <exec executable="ksh" outputproperty="commits">-->
                     <arg value="/c"/>
-                    <arg value="git checkout -f HEAD@{com}"/>
+<!--                    <arg value="/home/studs/s335989/mispi"/>-->
+                    <arg value="git checkout -f HEAD@{commit}"/>
                 </exec>
 
                 <antcall target="build">
@@ -150,7 +154,9 @@
                 </antcall>
 
                 <exec executable="cmd">
+<!--                <exec executable="ksh" outputproperty="commits">-->
                     <arg value="/c"/>
+<!--                    <arg value="/home/studs/s335989/mispi"/>-->
                     <arg value="git checkout -f ${start}"/>
                 </exec>
             </sequential>
