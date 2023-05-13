@@ -62,6 +62,7 @@
             <testclasses outputdir="${report}">
                 <fileset dir="${compiled.tests}"/>
             </testclasses>
+            <listener type="legacy-xml" sendSysErr="true" sendSysOut="true"/>
         </junitlauncher>
     </target>
 
@@ -102,9 +103,62 @@
     </target>
 
     <target name="native2ascii">
-        <native2ascii src="${main.resources}"
-                      dest="${native2ascii}"
-                      includes="**/*.properties"/>
+        <native2ascii src="${main.resources}" dest="${native2ascii}" includes="**/*.properties"/>
+    </target>
+
+
+<!--    TODO: report to git-->
+
+
+
+    <target name="report" depends="test">
+
+        <junitreport todir="${report}">
+
+            <fileset dir="${report}">
+                <include name="TEST-*.xml" />
+            </fileset>
+
+            <report todir="${report}/html" />
+        </junitreport>
+
+    </target>
+
+    <target name="team">
+        <exec executable="cmd" outputproperty="start">
+            <arg value="/c"/>
+            <arg value="git log --pretty=format:%h -1"/>
+        </exec>
+        <echo>${start}</echo>
+    </target>
+
+    <target name="env">
+        <mkdir dir="${compiled.classes}"/>
+        <mkdir dir="${compiled.tests}"/>
+
+        <javac destdir="${compiled.classes}" includeantruntime="false" source="${jvm.ver}"
+               target="${jvm.ver}" fork="true">
+            <src path="${main}"/>
+            <classpath refid="classpath.source"/>
+            <compilerarg line="${jvm.params}"/>
+        </javac>
+
+        <javac destdir="${compiled.tests}" includeantruntime="false" source="${jvm.ver}"
+               target="${jvm.ver}" fork="true">
+            <src path="${tests}"/>
+            <classpath>
+                <pathelement location="${compiled.classes}"/>
+                <path refid="classpath.source"/>
+            </classpath>
+            <compilerarg line="${jvm.params}"/>
+        </javac>
+
+        <jar destfile="${destination.jar}" basedir="${compiled.classes}">
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}"/>
+            </manifest>
+        </jar>
+
     </target>
 
 </project>

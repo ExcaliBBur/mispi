@@ -1,9 +1,0 @@
-Testcase: utils.HitTest
-Test: fourthQuarterMiss() took 1 milli sec(s)
-Test: thirdQuarterHit() took 1 milli sec(s)
-Test: secondQuarterHit() took 0 milli sec(s)
-Test: firstQuarterMiss() took 1 milli sec(s)
-Test: secondQuarterMiss() took 0 milli sec(s)
-Test: firstQuarterHit() took 0 milli sec(s)
-Test: thirdQuarterMiss() took 0 milli sec(s)
-Tests run: 7, Failures: 0, Skipped: 0, Aborted: 0, Time elapsed: 5 milli sec(s)
