@@ -19,6 +19,7 @@
         <dependency org="org.junit.platform" name="junit-platform-launcher" rev="1.9.3" conf="jars->default" />
         <dependency org="org.junit.jupiter" name="junit-jupiter-engine" rev="5.9.3" conf="jars->default" />
         <dependency org="org.junit.jupiter" name="junit-jupiter-params" rev="5.9.3" conf="jars->default" />
+        <dependency org="ant-contrib" name="ant-contrib" rev="1.0b3" conf="jars->default"/>
 
     </dependencies>
 </ivy-module>

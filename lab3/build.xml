@@ -10,6 +10,12 @@
         <fileset dir="${lib}" includes="**/*.jar"/>
     </path>
 
+    <taskdef resource="net/sf/antcontrib/antlib.xml" >
+        <classpath>
+            <pathelement location="${antcontrib}" />
+        </classpath>
+    </taskdef>
+
     <target name="resolve" description="resolve dependencies with ivy">
         <mkdir dir="${lib}"/>
         <ivy:retrieve pattern="lib/[artifact].[ext]" conf="jars"/>
@@ -125,11 +131,30 @@
     </target>
 
     <target name="team">
+        <mkdir dir="${team}"/>
+
         <exec executable="cmd" outputproperty="start">
             <arg value="/c"/>
             <arg value="git log --pretty=format:%h -1"/>
         </exec>
-        <echo>${start}</echo>
+        <for list="~,~~,~~~" param="tilda">
+            <sequential>
+                <exec executable="cmd" outputproperty="commit">
+                    <arg value="/c"/>
+                    <arg value="git checkout -f HEAD@{tilda}"/>
+                </exec>
+
+                <antcall target="build">
+                    <param name="destination.jar" value="${team}/${commit}.jar"/>
+                </antcall>
+
+                <exec executable="cmd">
+                    <arg value="/c"/>
+                    <arg value="git checkout -f ${start}"/>
+                </exec>
+
+            </sequential>
+        </for>
     </target>
 
     <target name="env">
