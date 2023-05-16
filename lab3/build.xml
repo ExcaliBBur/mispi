@@ -2,10 +2,6 @@
 <project name="mispi3" default="build" xmlns:ivy="antlib:org.apache.ivy.ant">
     <property file="build.properties"/>
 
-
-    <!--    TODO: ADD DESCRIPTION TO ALL TARGETS-->
-
-
     <path id="classpath.source">
         <fileset dir="${lib}" includes="**/*.jar"/>
     </path>
@@ -27,7 +23,7 @@
         <ivy:cleancache/>
     </target>
 
-    <target name="compile">
+    <target name="compile" description="компиляция исходных кодов проекта">
         <mkdir dir="${compiled.classes}"/>
         <mkdir dir="${compiled.tests}"/>
 
@@ -45,7 +41,8 @@
         </javac>
     </target>
 
-    <target name="build" depends="compile">
+    <target name="build" depends="compile" description=" компиляция исходных кодов
+    проекта и их упаковка в исполняемый jar-архив. Компиляцию исходных кодов реализовать посредством вызова цели compile">
         <jar destfile="${destination.jar}" basedir="${compiled.classes}">
             <manifest>
                 <attribute name="Main-Class" value="${main.class}"/>
@@ -53,11 +50,12 @@
         </jar>
     </target>
 
-    <target name="clean">
+    <target name="clean" description="удаление скомпилированных классов проекта и всех временных файлов (если они есть)">
         <delete dir="${compiled}"/>
     </target>
 
-    <target name="test" depends="build">
+    <target name="test" depends="build" description="запуск junit-тестов проекта.
+    Перед запуском тестов необходимо осуществить сборку проекта (цель build)">
         <mkdir dir="${report}"/>
         <junitlauncher printsummary="true">
             <classpath>
@@ -72,14 +70,15 @@
         </junitlauncher>
     </target>
 
-    <target name="xml">
+    <target name="xml" description="валидация всех xml-файлов в проекте">
         <xmlvalidate failonerror="no">
             <fileset dir="${main}" includes="**/*.xml"/>
         </xmlvalidate>
     </target>
 
     <target name="doc" depends="build"
-            description="Генерация javadoc и добавление в MANIFEST.MF MD5 и SHA-1 файлов проекта">
+            description="добавление в MANIFEST.MF MD5 и SHA-1 файлов проекта,
+            а также генерация и добавление в архив javadoc по всем классам проекта">
         <delete dir="${doc}"/>
         <mkdir dir="${doc}"/>
 
@@ -108,16 +107,13 @@
         </jar>
     </target>
 
-    <target name="native2ascii">
+    <target name="native2ascii" description="преобразование native2ascii для копий файлов локализации
+    (для тестирования сценария все строковые параметры необходимо вынести из классов в файлы локализации)">
         <native2ascii src="${main.resources}" dest="${native2ascii}" includes="**/*.properties"/>
     </target>
 
-
-<!--    TODO: report to git-->
-
-
-
-    <target name="report" depends="test">
+    <target name="report" depends="test" description="в случае успешного прохождения тестов сохраняет отчет junit в формате xml,
+    добавляет его в репозиторий git и выполняет commit">
 
         <junitreport todir="${report}">
 
@@ -128,24 +124,31 @@
             <report todir="${report}/html" />
         </junitreport>
 
+        <exec executable="${shell}">
+            <arg value="${path}"/>
+            <arg value="git add ${report}/TEST-*.xml"/>
+        </exec>
+
+        <exec executable="${shell}">
+            <arg value="${path}"/>
+            <arg value="git commit -m reportFromTarget"/>
+        </exec>
+
     </target>
 
-    <target name="team">
+    <target name="team" description="осуществляет получение из git-репозитория 3 предыдущих ревизий, их сборку (по аналогии с основной)
+    и упаковку получившихся jar-файлов в zip-архив. Сборку реализовать посредством вызова цели build">
         <mkdir dir="${team}"/>
 
-        <exec executable="cmd" outputproperty="start">
-<!--        <exec executable="ksh" outputproperty="commits">-->
-            <arg value="/c"/>
-<!--            <arg value="/home/studs/s335989/mispi"/>-->
+        <exec executable="${shell}" outputproperty="start">
+            <arg value="${path}"/>
             <arg value="git log --pretty=format:%h -1"/>
         </exec>
 
-        <for list="~,~~" param="commit">
+        <for list="~,~~, ~~~" param="commit">
             <sequential>
-                <exec executable="cmd" outputproperty="commits">
-<!--                <exec executable="ksh" outputproperty="commits">-->
-                    <arg value="/c"/>
-<!--                    <arg value="/home/studs/s335989/mispi"/>-->
+                <exec executable="${shell}" outputproperty="commits">
+                    <arg value="${path}"/>
                     <arg value="git checkout -f HEAD@{commit}"/>
                 </exec>
 
@@ -153,17 +156,16 @@
                     <param name="destination.jar" value="team/@{commit}.jar"/>
                 </antcall>
 
-                <exec executable="cmd">
-<!--                <exec executable="ksh" outputproperty="commits">-->
-                    <arg value="/c"/>
-<!--                    <arg value="/home/studs/s335989/mispi"/>-->
+                <exec executable="${shell}" outputproperty="commits">
+                    <arg value="${path}"/>
                     <arg value="git checkout -f ${start}"/>
                 </exec>
             </sequential>
         </for>
     </target>
 
-    <target name="env">
+    <target name="env" description="осуществляет сборку и запуск программы в альтернативных окружениях;
+    окружение задается версией java и набором аргументов виртуальной машины в файле параметров">
         <mkdir dir="${compiled.classes}"/>
         <mkdir dir="${compiled.tests}"/>
 
