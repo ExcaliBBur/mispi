@@ -145,7 +145,7 @@
             <arg value="git log --pretty=format:%h -1"/>
         </exec>
 
-        <for list="~,~~, ~~~" param="commit">
+        <for list="~,~~,~~~" param="commit">
             <sequential>
                 <exec executable="${shell}" outputproperty="commits">
                     <arg value="${path}"/>
@@ -153,7 +153,7 @@
                 </exec>
 
                 <antcall target="build">
-                    <param name="destination.jar" value="team/@{commit}.jar"/>
+                    <param name="${destination.jar}" value="team/@{commit}.jar"/>
                 </antcall>
 
                 <exec executable="${shell}" outputproperty="commits">
