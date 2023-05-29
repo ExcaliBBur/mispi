@@ -1,0 +1,8 @@
+beans\ClockBean.class
+mbeans\SquareMBean.class
+beans\HandlerBean.class
+mbeans\Counter.class
+mbeans\Square.class
+utils\DataBaseHandler.class
+utils\Hit.class
+mbeans\CounterMBean.class
